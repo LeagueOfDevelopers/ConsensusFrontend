@@ -1,68 +1,43 @@
 import React, { Component } from 'react';
-import {
-  withStyles,
-  Avatar,
-  Grid,
-  Typography,
-  Button,
-  Divider,
-} from '@material-ui/core';
+import { Divider, Grid, CardMedia, withStyles } from '@material-ui/core';
+import Tab from './components/Tab';
 import ava from './images/3.jpg';
+import placeholder from './images/1.jpg';
+import placeholder2 from './images/2.jpg';
 
 const styles = () => ({
-  root: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatar: {
-    width: 150,
-    height: 150,
-  },
-  profile: {
-    display: 'box',
+  media: {
+    width: 293,
+    height: 293,
   },
 });
+
+const images = [{ image: placeholder }, { image: placeholder2 }];
 
 class AccountPage extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Grid container className={classes.root}>
-        <Grid item xs={6} sm={3}>
-          <Avatar src={ava} className={classes.avatar} />
+      <Grid container direction="column">
+        <Grid item>
+          <Tab
+            ava={ava}
+            name="Notan Evchiform"
+            publication={1}
+            nickname="teenWitch"
+          />
         </Grid>
-        <Grid xs={6} item>
-          <div
-            style={{
-              display: 'flex',
-              height: '40px',
-              alignItems: 'center',
-              marginBottom: '1rem',
-            }}
-          >
-            <Typography variant="h5" style={{ marginRight: '1rem' }}>
-              Notan Evchiform
-            </Typography>
-            <Button variant="outlined" className={classes.button}>
-              Редактировать профиль
-            </Button>
-          </div>
-          <div>
-            <Typography
-              variant="h6"
-              style={{
-                marginRight: '10px',
-                display: 'flex',
-                alignItems: 'flex-end',
-              }}
-            >
-              1{' '}
-              <Typography variant="subtitle1" style={{ marginLeft: '5px' }}>
-                публикация
-              </Typography>
-            </Typography>
-          </div>
+        <Divider style={{ marginBottom: '60px' }} />
+        <Grid container spacing={6}>
+          {images.map(item => (
+            <Grid item>
+              <CardMedia
+                className={classes.media}
+                image={item.image}
+                title=""
+              />
+            </Grid>
+          ))}
         </Grid>
       </Grid>
     );
