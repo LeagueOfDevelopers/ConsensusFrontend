@@ -31,6 +31,10 @@ const images = [
         name: 'Faith',
         comment: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
       },
+      {
+        name: 'Faith',
+        comment: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+      },
     ],
   },
   {
@@ -48,33 +52,38 @@ class AccountPage extends Component {
       hovered: false,
       closed: false,
       image: '',
+      nickname: '',
+      comments: [],
     };
     this.handleClose = this.handleClose.bind(this);
   }
 
-  handleClose(image) {
+  handleClose(image, nickname, comments) {
     this.setState({ closed: !this.state.closed });
-    this.setState({ image });
+    this.setState({ image, nickname, comments });
   }
 
   render() {
     const { classes } = this.props;
-    const { hovered, closed, image } = this.state;
+    const { hovered, closed, image, nickname, comments } = this.state;
+
     return (
       <Grid container direction="column">
         <Grid item>
           <Tab
             ava={ava}
-            name="Notan Evchiform"
-            publication={1}
-            nickname="teenWitch"
+            name="Колористика"
+            publication={2}
+            nickname="Колористика и цветоведение"
           />
         </Grid>
         <Grid container spacing={6}>
           {images.map(item => (
             <Grid item>
               <CardActionArea
-                onClick={() => this.handleClose(item.img)}
+                onClick={() =>
+                  this.handleClose(item.img, item.nickname, item.comments)
+                }
                 onMouseEnter={() => this.setState({ hovered: true })}
                 onMouseLeave={() => this.setState({ hovered: false })}
               >
@@ -112,6 +121,8 @@ class AccountPage extends Component {
           closed={closed}
           handleClose={this.handleClose}
           image={image}
+          nickname={nickname}
+          comments={comments}
         />
       </Grid>
     );

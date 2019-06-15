@@ -5,7 +5,9 @@ import {
   Grid,
   Typography,
   Button,
+  IconButton,
 } from '@material-ui/core';
+import Settings from '@material-ui/icons/Settings';
 
 const styles = () => ({
   root: {
@@ -31,7 +33,7 @@ class Tab extends Component {
         <Grid item xs={6} sm={3}>
           <Avatar src={ava} className={classes.avatar} />
         </Grid>
-        <Grid xs={6} item>
+        <Grid xs={7} item>
           <div
             style={{
               display: 'flex',
@@ -43,9 +45,16 @@ class Tab extends Component {
             <Typography variant="h5" style={{ marginRight: '1rem' }}>
               {name}
             </Typography>
-            <Button variant="outlined" className={classes.button}>
+            <Button
+              variant="outlined"
+              className={classes.button}
+              style={{ marginRight: '1rem' }}
+            >
               Редактировать профиль
             </Button>
+            <IconButton>
+              <Settings style={{ color: '#000' }} />
+            </IconButton>
           </div>
           <div style={{ marginBottom: '0.5rem' }}>
             <Typography

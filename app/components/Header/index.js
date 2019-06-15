@@ -5,7 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import SearchInput from 'components/SearchInput';
 import { withStyles } from '@material-ui/core/styles';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import ava from 'containers/AccountPage/images/3.jpg';
+import { Avatar } from '@material-ui/core';
 
 const styles = () => ({
   root: {
@@ -47,7 +48,7 @@ class Header extends Component {
             </NavLink>
             <SearchInput />
             <NavLink to="/account" style={{ color: '#000' }}>
-              <AccountCircle fontSize="large" />
+              <Avatar src={ava} />
             </NavLink>
           </Toolbar>
         </AppBar>

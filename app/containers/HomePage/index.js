@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PostBlock from 'components/PostBlock';
-import avatar from './images/ава.jpg';
+import ava from 'containers/AccountPage/images/3.jpg';
 import image from './images/1.jpg';
 import image2 from './images/2.jpg';
 
 const postArray = [
   {
-    ava: avatar,
+    ava,
     img: image,
     nickname: 'Колористика и цветоведение',
     likes: 8,
@@ -18,7 +18,7 @@ const postArray = [
     ],
   },
   {
-    ava: avatar,
+    ava,
     img: image2,
     nickname: 'Колористика и цветоведение',
     likes: 3,
@@ -31,7 +31,7 @@ class HomePage extends Component {
       <div>
         {postArray.map(item => (
           <PostBlock
-            avatar={item.ava}
+            ava={item.ava}
             image={item.img}
             nickname={item.nickname}
             likes={item.likes}
