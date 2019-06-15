@@ -15,6 +15,13 @@ const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
   },
+  overrides: {
+    MuiDialog: {
+      paper: {
+        maxWidth: '100% !important',
+      },
+    },
+  },
 });
 
 class App extends Component {

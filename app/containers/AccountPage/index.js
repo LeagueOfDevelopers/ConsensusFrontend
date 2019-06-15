@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { Divider, Grid, CardMedia, withStyles } from '@material-ui/core';
+import {
+  Grid,
+  CardMedia,
+  withStyles,
+  CardActionArea,
+  Typography,
+} from '@material-ui/core';
+import Favorite from '@material-ui/icons/Favorite';
+import Fade from '@material-ui/core/Fade';
+import DialogImage from 'components/DialogImage';
 import Tab from './components/Tab';
 import ava from './images/3.jpg';
 import placeholder from './images/1.jpg';
@@ -13,15 +22,44 @@ const styles = () => ({
 });
 
 const images = [
-  { image: placeholder2 },
-  { image: placeholder },
-  { image: placeholder2 },
-  { image: placeholder },
+  {
+    img: placeholder,
+    nickname: 'Колористика и цветоведение',
+    likes: 8,
+    comments: [
+      {
+        name: 'Faith',
+        comment: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+      },
+    ],
+  },
+  {
+    img: placeholder2,
+    nickname: 'Колористика и цветоведение',
+    likes: 3,
+  },
 ];
 
 class AccountPage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      hovered: false,
+      closed: false,
+      image: '',
+    };
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClose(image) {
+    this.setState({ closed: !this.state.closed });
+    this.setState({ image });
+  }
+
   render() {
     const { classes } = this.props;
+    const { hovered, closed, image } = this.state;
     return (
       <Grid container direction="column">
         <Grid item>
@@ -32,18 +70,49 @@ class AccountPage extends Component {
             nickname="teenWitch"
           />
         </Grid>
-
         <Grid container spacing={6}>
           {images.map(item => (
             <Grid item>
-              <CardMedia
-                className={classes.media}
-                image={item.image}
-                title=""
-              />
+              <CardActionArea
+                onClick={() => this.handleClose(item.img)}
+                onMouseEnter={() => this.setState({ hovered: true })}
+                onMouseLeave={() => this.setState({ hovered: false })}
+              >
+                <Fade in={hovered}>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      width: '100%',
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      zIndex: '10000',
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      style={{
+                        color: '#fff',
+                        display: 'flex',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Favorite style={{ color: '#fff', marginRight: '5px' }} />{' '}
+                      {item.likes}
+                    </Typography>
+                  </div>
+                </Fade>
+                <CardMedia className={classes.media} image={item.img} />
+              </CardActionArea>
             </Grid>
           ))}
         </Grid>
+        <DialogImage
+          closed={closed}
+          handleClose={this.handleClose}
+          image={image}
+        />
       </Grid>
     );
   }

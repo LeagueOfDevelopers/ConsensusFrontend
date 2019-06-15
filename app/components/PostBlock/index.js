@@ -68,18 +68,20 @@ class PostBlock extends Component {
         />
         <Divider />
         <CardMedia className={classes.media} image={image} title="" />
-        <CardActions disableSpacing style={{ padding: '16px  16px 8px 16px' }}>
-          <FavoriteIcon style={{ marginRight: '10px', cursor: 'pointer' }} />
-          <Typography
-            variant="subtitle2"
-            component="h1"
-            style={{ userSelect: 'none' }}
-          >
-            {likes} отметок "Нравится"
-          </Typography>
+        <CardActions disableSpacing style={{ padding: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <FavoriteIcon style={{ marginRight: '10px', cursor: 'pointer' }} />
+            <Typography
+              variant="subtitle2"
+              component="h1"
+              style={{ userSelect: 'none' }}
+            >
+              {likes} отметок "Нравится"
+            </Typography>
+          </div>
         </CardActions>
         {comments ? (
-          <CardContent style={{ padding: '8px 16px  16px 16px' }}>
+          <CardContent style={{ padding: '0 16px  16px 16px' }}>
             {comments
               ? comments.map(item => (
                 <Typography variant="body2">
