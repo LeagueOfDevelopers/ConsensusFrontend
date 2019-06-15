@@ -12,7 +12,12 @@ const styles = () => ({
   },
 });
 
-const images = [{ image: placeholder }, { image: placeholder2 }];
+const images = [
+  { image: placeholder2 },
+  { image: placeholder },
+  { image: placeholder2 },
+  { image: placeholder },
+];
 
 class AccountPage extends Component {
   render() {
@@ -27,7 +32,7 @@ class AccountPage extends Component {
             nickname="teenWitch"
           />
         </Grid>
-        <Divider style={{ marginBottom: '60px' }} />
+
         <Grid container spacing={6}>
           {images.map(item => (
             <Grid item>
