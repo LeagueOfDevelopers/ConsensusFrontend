@@ -9,6 +9,7 @@ import Header from 'components/Header';
 import GlobalStyle from '../../global-styles';
 import RegisterPage from '../RegisterPage';
 import LoginPage from '../LoginPage';
+import AccountPage from '../AccountPage';
 
 const theme = createMuiTheme({
   typography: {
@@ -38,6 +39,7 @@ class App extends Component {
           >
             <Switch>
               <Route exact path="/" component={HomePage} />
+              <Route exact path="/account" component={AccountPage} />
               <Route exact path="/register" component={RegisterPage} />
               <Route exact path="/login" component={LoginPage} />
               <Route component={NotFoundPage} />
