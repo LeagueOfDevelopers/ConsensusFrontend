@@ -5,6 +5,7 @@ import {
   Typography,
   InputBase,
   Button,
+  Fade,
 } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
@@ -15,6 +16,7 @@ import CardContent from '@material-ui/core/CardContent';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+
 
 const styles = theme => ({
   root: {
@@ -47,8 +49,12 @@ const styles = theme => ({
 });
 
 class PostBlock extends Component {
+  state = {
+    checked: false,
+  }
   render() {
     const { classes, nickname, comments, likes, ava, image } = this.props;
+    const {checked} = this.state;
     return (
       <Card className={classes.root}>
         <CardHeader
@@ -67,7 +73,13 @@ class PostBlock extends Component {
           title={nickname}
         />
         <Divider />
-        <CardMedia className={classes.media} image={image} title="" />
+        <div style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <Fade in={checked}>
+        <FavoriteIcon style={{width: '120px', height: '120px', color: '#fff', position: 'absolute', zIndex: 1000 }} />
+        </Fade>
+        <CardMedia className={classes.media} image={image} title="" onDoubleClick={() => { this.setState({checked: !checked}); setTimeout(() => this.setState({checked: false}), 2000)}
+        }/>
+        </div>
         <CardActions disableSpacing style={{ padding: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <FavoriteIcon style={{ marginRight: '10px', cursor: 'pointer' }} />

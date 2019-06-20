@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { compose } from 'redux';
 
+import injectSaga from 'utils/injectSaga';
+import authProviderSaga from 'containers/RegisterPage/sagas';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
@@ -46,7 +50,7 @@ class App extends Component {
           >
             <Switch>
               <Route exact path="/" component={HomePage} />
-              <Route exact path="/account" component={AccountPage} />
+              <Route exact path="/account/:id" component={AccountPage} />
               <Route exact path="/register" component={RegisterPage} />
               <Route exact path="/login" component={LoginPage} />
               <Route component={NotFoundPage} />
@@ -59,4 +63,13 @@ class App extends Component {
   }
 }
 
-export default App;
+const withSaga = authProviderSaga.map(saga =>
+  injectSaga({ key: saga.name, saga }),
+);
+
+const AppI = compose(
+  withSaga[0],
+  withSaga[1],
+)(App);
+
+export default withRouter(AppI);

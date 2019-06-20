@@ -23,6 +23,7 @@ const styles = () => ({
   paper: {
     height: 600,
     width: 335,
+    zIndex: 100,
   },
   input: {
     padding: '8px 16px',
@@ -36,7 +37,7 @@ const styles = () => ({
 
 class DialogImage extends Component {
   render() {
-    const { classes, closed, handleClose, image, nickname,comments } = this.props;
+    const { classes, closed, handleClose, image, nickname, comments } = this.props;
 
     return (
       <Dialog open={closed} onClose={handleClose} style={{ zIndex: 100000 }}>

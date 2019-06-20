@@ -13,6 +13,7 @@ import Tab from './components/Tab';
 import ava from './images/3.jpg';
 import placeholder from './images/1.jpg';
 import placeholder2 from './images/2.jpg';
+import placeholder3 from './images/4.png';
 
 const styles = () => ({
   media: {
@@ -41,6 +42,11 @@ const images = [
     img: placeholder2,
     nickname: 'Колористика и цветоведение',
     likes: 3,
+  },
+  {
+    img: placeholder3,
+    nickname: 'Колористика и цветоведение',
+    likes: 5,
   },
 ];
 
@@ -71,7 +77,7 @@ class AccountPage extends Component {
       <Grid container direction="column">
         <Grid item>
           <Tab
-            ava={ava}
+            // ava={ava}
             name="Колористика"
             publication={2}
             nickname="Колористика и цветоведение"
@@ -117,6 +123,7 @@ class AccountPage extends Component {
             </Grid>
           ))}
         </Grid>
+
         <DialogImage
           closed={closed}
           handleClose={this.handleClose}

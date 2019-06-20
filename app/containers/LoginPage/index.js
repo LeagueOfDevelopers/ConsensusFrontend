@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import {
-  Paper,
-  withStyles,
-  Typography,
-  InputBase,
-  Grid,
-  Button,
-} from '@material-ui/core';
+import { reduxForm, formValueSelector } from 'redux-form';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import config from 'utils/config';
+import { fetchLogin } from 'containers/RegisterPage/actions';
+import { Paper, withStyles, Typography, Grid, Button } from '@material-ui/core';
+import InputText from 'components/InputText';
 import { NavLink } from 'react-router-dom';
 
 const styles = () => ({
@@ -35,6 +34,21 @@ const styles = () => ({
 });
 
 class LoginPage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit() {
+    const data = {
+      email: this.props.email,
+      password: this.props.password,
+    };
+
+    this.props.fetchLogin.start(data);
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -60,27 +74,14 @@ class LoginPage extends Component {
             alignItems="center"
             style={{ marginBottom: '2rem' }}
           >
-            <InputBase
-              className={classes.input}
-              placeholder="Электронный адрес"
-              inputProps={{
-                'aria-label': 'e-mail',
-                style: { fontSize: '16px' },
-              }}
-            />
-            <InputBase
-              className={classes.input}
-              placeholder="Пароль"
-              inputProps={{
-                'aria-label': 'password',
-                style: { fontSize: '16px' },
-              }}
-            />
+            <InputText placeholder="Электронный адрес" name="email" />
+            <InputText placeholder="Пароль" name="password" type="password" />
           </Grid>
           <Button
             variant="contained"
             color="primary"
             className={classes.button}
+            onClick={this.onSubmit}
           >
             Войти
           </Button>
@@ -115,4 +116,21 @@ class LoginPage extends Component {
   }
 }
 
-export default withStyles(styles)(LoginPage);
+const mapStateToProps = state => {
+  const selector = formValueSelector('signIn', states => states.form);
+  const email = selector(state, 'email');
+  const password = selector(state, 'password');
+  return { email, password };
+};
+
+const Login = reduxForm({
+  form: 'signIn',
+  getFormState: state => state.form,
+})(LoginPage);
+
+const LoginRedux = connect(
+  mapStateToProps,
+  dispatch => ({ fetchLogin: fetchLogin.bindTo(dispatch) }),
+)(Login);
+
+export default withStyles(styles)(LoginRedux);

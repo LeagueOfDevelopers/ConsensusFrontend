@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-  Paper,
-  withStyles,
-  Typography,
-  InputBase,
-  Grid,
-  Button,
-} from '@material-ui/core';
+import { reduxForm, formValueSelector } from 'redux-form';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import config from 'utils/config';
+import { Paper, withStyles, Typography, Grid, Button } from '@material-ui/core';
+import InputText from 'components/InputText';
+import { fetchRegistration } from 'containers/RegisterPage/actions';
 
 const styles = () => ({
   root: {
@@ -35,6 +34,23 @@ const styles = () => ({
 });
 
 class RegisterPage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit() {
+    const data = {
+      name: this.props.name,
+      nickname: this.props.nickname,
+      email: this.props.email,
+      password: this.props.password,
+    };
+
+    this.props.fetchRegistration.start(data);
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -60,40 +76,16 @@ class RegisterPage extends Component {
             alignItems="center"
             style={{ marginBottom: '2rem' }}
           >
-            <InputBase
-              className={classes.input}
-              placeholder="Электронный адрес"
-              inputProps={{
-                'aria-label': 'e-mail',
-                style: { fontSize: '16px' },
-              }}
-            />
-            <InputBase
-              className={classes.input}
-              placeholder="Имя и фамилия"
-              inputProps={{ 'aria-label': 'name', style: { fontSize: '16px' } }}
-            />
-            <InputBase
-              className={classes.input}
-              placeholder="Имя пользователя"
-              inputProps={{
-                'aria-label': 'nickname',
-                style: { fontSize: '16px' },
-              }}
-            />
-            <InputBase
-              className={classes.input}
-              placeholder="Пароль"
-              inputProps={{
-                'aria-label': 'password',
-                style: { fontSize: '16px' },
-              }}
-            />
+            <InputText placeholder="Электронный адрес" name="email" />
+            <InputText placeholder="Имя и фамилия" name="name" />
+            <InputText placeholder="Имя пользователя" name="nickname" />
+            <InputText placeholder="Пароль" name="password" type="password" />
           </Grid>
           <Button
             variant="contained"
             color="primary"
             className={classes.button}
+            onClick={this.onSubmit}
           >
             Регистрация
           </Button>
@@ -127,4 +119,23 @@ class RegisterPage extends Component {
   }
 }
 
-export default withStyles(styles)(RegisterPage);
+const mapStateToProps = state => {
+  const selector = formValueSelector('register', states => states.form);
+  const name = selector(state, 'name');
+  const nickname = selector(state, 'nickname');
+  const email = selector(state, 'email');
+  const password = selector(state, 'password');
+  return { name, nickname, email, password };
+};
+
+const Register = reduxForm({
+  form: 'register',
+  getFormState: state => state.form,
+})(RegisterPage);
+
+const RegisterRedux = connect(
+  mapStateToProps,
+  dispatch => ({ fetchRegistration: fetchRegistration.bindTo(dispatch) }),
+)(Register);
+
+export default withStyles(styles)(RegisterRedux);
