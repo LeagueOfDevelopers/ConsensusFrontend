@@ -36,6 +36,7 @@ export function* registration() {
     try {
       const action = yield take(fetchRegistration.types.start);
       const id = yield call(sendRegistrationData, action.payload);
+      yield put(push(`/login`));
       yield put(fetchRegistration.success(id));
     } catch (e) {
       yield put(fetchRegistration.failed(e));

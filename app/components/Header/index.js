@@ -52,9 +52,11 @@ class Header extends Component {
             {localStorage.name ? (
               <NavLink
                 to={`/account/${localStorage.id}`}
-                style={{ color: '#000' }}
+                style={{ color: '#000', textDecoration: 'none' }}
               >
-                <Avatar>{localStorage.name[0]}</Avatar>
+                <Avatar style={{ backgroundColor: '#212121' }}>
+                  {localStorage.name[0]}
+                </Avatar>
               </NavLink>
             ) : (
               <Button

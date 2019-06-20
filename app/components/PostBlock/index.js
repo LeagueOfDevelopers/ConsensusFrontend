@@ -26,6 +26,7 @@ const styles = theme => ({
   avatar: {
     width: 28,
     height: 28,
+    backgroundColor: '#212121',
   },
   input: {
     padding: '8px 16px',
