@@ -6,8 +6,12 @@ import {
   Typography,
   Button,
   IconButton,
+  Dialog,
+  Divider,
 } from '@material-ui/core';
+import { connect } from 'react-redux';
 import Settings from '@material-ui/icons/Settings';
+import { fetchLogout } from 'containers/RegisterPage/actions';
 
 const styles = () => ({
   root: {
@@ -27,8 +31,20 @@ const styles = () => ({
 });
 
 class Tab extends Component {
+  state = {
+    dialoged: false,
+    addNew: false,
+  };
+
   render() {
-    const { classes, ava, name, publication, nickname } = this.props;
+    const {
+      classes,
+      ava,
+      name,
+      publication,
+      nickname,
+      handleDialog,
+    } = this.props;
     return (
       <Grid container className={classes.root}>
         <Grid item xs={6} sm={3}>
@@ -44,7 +60,7 @@ class Tab extends Component {
             }}
           >
             <Typography variant="h5" style={{ marginRight: '1rem' }}>
-              {name}
+              {nickname}
             </Typography>
             <Button
               variant="outlined"
@@ -53,7 +69,9 @@ class Tab extends Component {
             >
               Редактировать профиль
             </Button>
-            <IconButton>
+            <IconButton
+              onClick={() => this.setState({ dialoged: !this.state.dialoged })}
+            >
               <Settings style={{ color: '#000' }} />
             </IconButton>
           </div>
@@ -68,7 +86,7 @@ class Tab extends Component {
             >
               {publication}
               <Typography variant="subtitle1" style={{ marginLeft: '5px' }}>
-                публикация
+                публикаци{publication === '0' ? 'й' : 'я'}
               </Typography>
             </Typography>
           </div>
@@ -87,13 +105,122 @@ class Tab extends Component {
                 alignItems: 'flex-end',
               }}
             >
-              {nickname}
+              {name}
             </Typography>
           </div>
         </Grid>
+        <Dialog
+          onClose={() => this.setState({ dialoged: !this.state.dialoged })}
+          open={this.state.dialoged}
+        >
+          <Button
+            variant="outlined"
+            style={{
+              width: '400px',
+              height: '48px',
+              border: 'none',
+              borderRadius: '0',
+              fontWeight: 400,
+            }}
+            onClick={() =>
+              this.setState({
+                addNew: !this.state.addNew,
+                dialoged: !this.state.dialoged,
+              })
+            }
+          >
+            Добавить публикацию
+          </Button>
+          <Divider />
+          <Button
+            variant="outlined"
+            style={{
+              width: '400px',
+              height: '48px',
+              border: 'none',
+              borderRadius: '0',
+              fontWeight: 400,
+            }}
+            onClick={() => this.props.fetchLogout.start()}
+          >
+            Выйти
+          </Button>
+          <Divider />
+          <Button
+            variant="outlined"
+            style={{
+              width: '400px',
+              height: '48px',
+              border: 'none',
+              borderRadius: '0',
+              fontWeight: 400,
+            }}
+            onClick={() => this.setState({ dialoged: !this.state.dialoged })}
+          >
+            Отмена
+          </Button>
+        </Dialog>
+
+        <Dialog
+          onClose={() =>
+            this.setState({
+              addNew: !this.state.addNew,
+              dialoged: !this.state.dialoged,
+            })
+          }
+          open={this.state.addNew}
+        >
+          <input
+            accept="image/*"
+            className={classes.input}
+            style={{ display: 'none' }}
+            id="raised-button-file"
+            multiple
+            type="file"
+          />
+          <label htmlFor="raised-button-file">
+            <Button
+              variant="raised"
+              component="span"
+              style={{
+                width: '400px',
+                height: '48px',
+                border: 'none',
+                borderRadius: '0',
+                fontWeight: 400,
+              }}
+            >
+              Загрузить с компьютера
+            </Button>
+          </label>
+          <Divider />
+          <Button
+            variant="outlined"
+            style={{
+              width: '400px',
+              height: '48px',
+              border: 'none',
+              borderRadius: '0',
+              fontWeight: 400,
+            }}
+            onClick={() =>
+              this.setState({
+                addNew: !this.state.addNew,
+                dialoged: !this.state.dialoged,
+              })
+            }
+          >
+            Отмена
+          </Button>
+        </Dialog>
       </Grid>
     );
   }
 }
 
-export default withStyles(styles)(Tab);
+const styled = withStyles(styles)(Tab);
+
+export default connect(
+  () => ({}),
+  dispatch => ({ fetchLogout: fetchLogout.bindTo(dispatch) }),
+)(styled);

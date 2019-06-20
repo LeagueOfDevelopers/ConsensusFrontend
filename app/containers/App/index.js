@@ -70,6 +70,7 @@ const withSaga = authProviderSaga.map(saga =>
 const AppI = compose(
   withSaga[0],
   withSaga[1],
+  withSaga[2],
 )(App);
 
 export default withRouter(AppI);

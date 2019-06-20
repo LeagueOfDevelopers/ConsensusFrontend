@@ -10,10 +10,8 @@ import Favorite from '@material-ui/icons/Favorite';
 import Fade from '@material-ui/core/Fade';
 import DialogImage from 'components/DialogImage';
 import Tab from './components/Tab';
-import ava from './images/3.jpg';
 import placeholder from './images/1.jpg';
 import placeholder2 from './images/13.jpg';
-import placeholder3 from './images/4.png';
 
 const styles = () => ({
   media: {
@@ -41,12 +39,7 @@ const images = [
   {
     img: placeholder2,
     nickname: 'Колористика и цветоведение',
-    likes: 3,
-  },
-  {
-    img: placeholder3,
-    nickname: 'Колористика и цветоведение',
-    likes: 5,
+    likes: 12930,
   },
 ];
 
@@ -58,7 +51,7 @@ class AccountPage extends Component {
       hovered: false,
       closed: false,
       image: '',
-      nickname: '',
+      nickname: localStorage.nickname,
       comments: [],
     };
     this.handleClose = this.handleClose.bind(this);
@@ -78,9 +71,10 @@ class AccountPage extends Component {
         <Grid item>
           <Tab
             // ava={ava}
-            name="Колористика"
-            publication={2}
-            nickname="Колористика и цветоведение"
+            handleDialog={this.handleDialog}
+            name={localStorage.name}
+            publication={localStorage.postCount}
+            nickname={localStorage.nickname}
           />
         </Grid>
         <Grid container spacing={6}>
@@ -123,7 +117,6 @@ class AccountPage extends Component {
             </Grid>
           ))}
         </Grid>
-
         <DialogImage
           closed={closed}
           handleClose={this.handleClose}

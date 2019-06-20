@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import SearchInput from 'components/SearchInput';
 import { withStyles } from '@material-ui/core/styles';
+
 import ava from 'containers/AccountPage/images/3.jpg';
-import { Avatar } from '@material-ui/core';
+import { Avatar, Button } from '@material-ui/core';
 
 const styles = () => ({
   root: {
@@ -22,6 +23,7 @@ const styles = () => ({
   },
   logo: {
     color: '#000',
+    width: 193,
     textDecoration: 'none',
   },
 });
@@ -47,9 +49,21 @@ class Header extends Component {
               </Typography>
             </NavLink>
             <SearchInput />
-            <NavLink to="/account" style={{ color: '#000' }}>
-              <Avatar>K</Avatar>
-            </NavLink>
+            {localStorage.name ? (
+              <NavLink
+                to={`/account/${localStorage.id}`}
+                style={{ color: '#000' }}
+              >
+                <Avatar>{localStorage.name[0]}</Avatar>
+              </NavLink>
+            ) : (
+              <Button
+                variant="outlined"
+                onClick={() => this.props.history.push('/login')}
+              >
+                Вход и регистрация
+              </Button>
+            )}
           </Toolbar>
         </AppBar>
       </div>
@@ -57,4 +71,6 @@ class Header extends Component {
   }
 }
 
-export default withStyles(styles)(Header);
+const Head = withRouter(Header);
+
+export default withStyles(styles)(Head);
