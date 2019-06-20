@@ -32,9 +32,7 @@ class Tab extends Component {
     return (
       <Grid container className={classes.root}>
         <Grid item xs={6} sm={3}>
-          <Avatar src={ava} className={classes.avatar}>
-            {nickname[0].toUpperCase()}
-          </Avatar>
+          <Avatar className={classes.avatar}>{nickname[0]}</Avatar>
         </Grid>
         <Grid xs={7} item>
           <div

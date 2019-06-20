@@ -48,7 +48,7 @@ class Header extends Component {
             </NavLink>
             <SearchInput />
             <NavLink to="/account" style={{ color: '#000' }}>
-              <Avatar src={ava} />
+              <Avatar>K</Avatar>
             </NavLink>
           </Toolbar>
         </AppBar>

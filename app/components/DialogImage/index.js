@@ -49,8 +49,7 @@ class DialogImage extends Component {
                 <Avatar
                   aria-label="Recipe"
                   className={classes.avatar}
-                  src={ava}
-                />
+                >{nickname[0]}</Avatar>
               }
               action={
                 <IconButton

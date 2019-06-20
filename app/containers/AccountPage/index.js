@@ -12,7 +12,7 @@ import DialogImage from 'components/DialogImage';
 import Tab from './components/Tab';
 import ava from './images/3.jpg';
 import placeholder from './images/1.jpg';
-import placeholder2 from './images/2.jpg';
+import placeholder2 from './images/13.jpg';
 import placeholder3 from './images/4.png';
 
 const styles = () => ({

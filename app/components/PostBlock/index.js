@@ -59,7 +59,7 @@ class PostBlock extends Component {
       <Card className={classes.root}>
         <CardHeader
           avatar={
-            <Avatar aria-label="Recipe" className={classes.avatar} src={ava} />
+            <Avatar aria-label="Recipe" className={classes.avatar}>K</Avatar>
           }
           action={
             <IconButton

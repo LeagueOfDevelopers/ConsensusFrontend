@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PostBlock from 'components/PostBlock';
 import ava from 'containers/AccountPage/images/3.jpg';
+import image2 from 'containers/AccountPage/images/13.jpg';
 import image from './images/1.jpg';
-import image2 from './images/2.jpg';
 
 const postArray = [
   {
