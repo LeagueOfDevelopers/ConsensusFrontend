@@ -6,6 +6,7 @@ import {
   CardActionArea,
   Typography,
 } from '@material-ui/core';
+import { withRouter } from 'react-router';
 import Favorite from '@material-ui/icons/Favorite';
 import Fade from '@material-ui/core/Fade';
 import DialogImage from 'components/DialogImage';
@@ -55,6 +56,12 @@ class AccountPage extends Component {
       comments: [],
     };
     this.handleClose = this.handleClose.bind(this);
+  }
+
+  componentWillMount() {
+    if (!localStorage.name) {
+      this.props.history.push('/');
+    }
   }
 
   handleClose(image, nickname, comments) {
@@ -129,4 +136,6 @@ class AccountPage extends Component {
   }
 }
 
-export default withStyles(styles)(AccountPage);
+const styled = withStyles(styles)(AccountPage);
+
+export default withRouter(styled);

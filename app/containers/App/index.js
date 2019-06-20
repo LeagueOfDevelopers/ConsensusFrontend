@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
-
+import { black } from '@material-ui/core/colors';
 import injectSaga from 'utils/injectSaga';
 import authProviderSaga from 'containers/RegisterPage/sagas';
 import HomePage from 'containers/HomePage/Loadable';
@@ -13,11 +13,17 @@ import Header from 'components/Header';
 import GlobalStyle from '../../global-styles';
 import RegisterPage from '../RegisterPage';
 import LoginPage from '../LoginPage';
+
 import AccountPage from '../AccountPage';
 
 const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
+  },
+  palette: {
+    primary: {
+      main: '#212121',
+    },
   },
   overrides: {
     MuiDialog: {

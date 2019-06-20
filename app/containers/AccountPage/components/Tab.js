@@ -8,6 +8,8 @@ import {
   IconButton,
   Dialog,
   Divider,
+  TextField,
+  Paper,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import Settings from '@material-ui/icons/Settings';
@@ -34,6 +36,7 @@ class Tab extends Component {
   state = {
     dialoged: false,
     addNew: false,
+    edited: false,
   };
 
   render() {
@@ -66,6 +69,11 @@ class Tab extends Component {
               variant="outlined"
               className={classes.button}
               style={{ marginRight: '1rem' }}
+              onClick={() =>
+                this.setState({
+                  edited: !this.state.edited,
+                })
+              }
             >
               Редактировать профиль
             </Button>
@@ -212,6 +220,80 @@ class Tab extends Component {
           >
             Отмена
           </Button>
+        </Dialog>
+        <Dialog
+          open={this.state.edited}
+          onClose={() =>
+            this.setState({
+              edited: !this.state.edited,
+            })
+          }
+        >
+          <Paper
+            style={{
+              width: '500px',
+              height: '600px',
+              padding: '1rem',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Typography variant="h4" style={{ textAlign: 'center' }}>
+              Редактирование профиля
+            </Typography>
+            <Divider />
+            <TextField
+              id="outlined-name"
+              label="Электронный адрес"
+              variant="outlined"
+              defaultValue={localStorage.email}
+              style={{ width: '100%' }}
+            />
+            <TextField
+              id="outlined-name"
+              label="Имя Фамилия"
+              variant="outlined"
+              defaultValue={localStorage.name}
+              style={{ width: '100%' }}
+            />
+            <TextField
+              id="outlined-name"
+              label="Имя пользователя"
+              variant="outlined"
+              defaultValue={localStorage.nickname}
+              style={{ width: '100%' }}
+            />
+            <TextField
+              type="password"
+              id="outlined-name"
+              label="Новый пароль"
+              variant="outlined"
+              style={{ width: '100%' }}
+            />
+            <TextField
+              type="password"
+              id="outlined-name"
+              label="Повторите пароль"
+              variant="outlined"
+              style={{ width: '100%' }}
+            />
+            <Divider />
+            <Button
+              variant="outlined"
+              style={{
+                width: '100%',
+                height: '48px',
+              }}
+              onClick={() =>
+                this.setState({
+                  edited: !this.state.edited,
+                })
+              }
+            >
+              Отмена
+            </Button>
+          </Paper>
         </Dialog>
       </Grid>
     );
