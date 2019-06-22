@@ -6,6 +6,7 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 import { reducer as formReducer } from 'redux-form';
 import authProviderReducer from 'containers/RegisterPage/reducers';
+import userReducer from 'containers/AccountPage/reducers';
 
 import history from 'utils/history';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
@@ -18,6 +19,7 @@ export default function createReducer(injectedReducers = {}) {
     language: languageProviderReducer,
     router: connectRouter(history),
     auth: authProviderReducer,
+    reducer: userReducer,
     ...injectedReducers,
     form: formReducer,
   });

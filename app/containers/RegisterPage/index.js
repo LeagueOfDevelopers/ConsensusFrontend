@@ -82,7 +82,7 @@ class RegisterPage extends Component {
             <InputText placeholder="Пароль" name="password" type="password" />
           </Grid>
           <Button
-            variant="contained"
+            variant="outlined"
             color="primary"
             className={classes.button}
             onClick={this.onSubmit}

@@ -78,8 +78,7 @@ class LoginPage extends Component {
             <InputText placeholder="Пароль" name="password" type="password" />
           </Grid>
           <Button
-            variant="contained"
-            color="primary"
+            variant="outlined"
             className={classes.button}
             onClick={this.onSubmit}
           >

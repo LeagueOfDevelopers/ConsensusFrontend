@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
-import { black } from '@material-ui/core/colors';
 import injectSaga from 'utils/injectSaga';
 import authProviderSaga from 'containers/RegisterPage/sagas';
+import userProviderSaga from 'containers/AccountPage/sagas';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
@@ -77,6 +77,7 @@ const AppI = compose(
   withSaga[0],
   withSaga[1],
   withSaga[2],
+  userProviderSaga.map(saga => injectSaga({ key: saga.name, saga }))[0],
 )(App);
 
 export default withRouter(AppI);

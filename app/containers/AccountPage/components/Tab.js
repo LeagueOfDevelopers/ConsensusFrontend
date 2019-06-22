@@ -11,6 +11,7 @@ import {
   TextField,
   Paper,
 } from '@material-ui/core';
+import jwt from 'jsonwebtoken';
 import { connect } from 'react-redux';
 import Settings from '@material-ui/icons/Settings';
 import { fetchLogout } from 'containers/RegisterPage/actions';
@@ -40,14 +41,10 @@ class Tab extends Component {
   };
 
   render() {
-    const {
-      classes,
-      ava,
-      name,
-      publication,
-      nickname,
-      handleDialog,
-    } = this.props;
+    const { classes, ava, name, publication, nickname } = this.props;
+    const fromToken = jwt.decode(localStorage.token, { complete: true })
+      .payload;
+
     return (
       <Grid container className={classes.root}>
         <Grid item xs={6} sm={3}>
@@ -65,23 +62,31 @@ class Tab extends Component {
             <Typography variant="h5" style={{ marginRight: '1rem' }}>
               {nickname}
             </Typography>
-            <Button
-              variant="outlined"
-              className={classes.button}
-              style={{ marginRight: '1rem' }}
-              onClick={() =>
-                this.setState({
-                  edited: !this.state.edited,
-                })
-              }
-            >
-              Редактировать профиль
-            </Button>
-            <IconButton
-              onClick={() => this.setState({ dialoged: !this.state.dialoged })}
-            >
-              <Settings style={{ color: '#000' }} />
-            </IconButton>
+            {fromToken.name === name ? (
+              <div>
+                <Button
+                  variant="outlined"
+                  className={classes.button}
+                  style={{ marginRight: '1rem' }}
+                  onClick={() =>
+                    this.setState({
+                      edited: !this.state.edited,
+                    })
+                  }
+                >
+                  Редактировать профиль
+                </Button>
+                <IconButton
+                  onClick={() =>
+                    this.setState({ dialoged: !this.state.dialoged })
+                  }
+                >
+                  <Settings style={{ color: '#000' }} />
+                </IconButton>
+              </div>
+            ) : (
+              ''
+            )}
           </div>
           <div style={{ marginBottom: '0.5rem' }}>
             <Typography
@@ -94,7 +99,7 @@ class Tab extends Component {
             >
               {publication}
               <Typography variant="subtitle1" style={{ marginLeft: '5px' }}>
-                публикаци{publication === '0' ? 'й' : 'я'}
+                публикаци{publication === 0 ? 'й' : 'я'}
               </Typography>
             </Typography>
           </div>
@@ -279,6 +284,15 @@ class Tab extends Component {
               style={{ width: '100%' }}
             />
             <Divider />
+            <Button
+              variant="outlined"
+              style={{
+                width: '100%',
+                height: '48px',
+              }}
+            >
+              Изменить
+            </Button>
             <Button
               variant="outlined"
               style={{

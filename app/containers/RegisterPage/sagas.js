@@ -45,19 +45,11 @@ export function* registration() {
 }
 
 function deleteLocal() {
-  localStorage.removeItem('name');
-  localStorage.removeItem('id');
-  localStorage.removeItem('nickname');
-  localStorage.removeItem('email');
-  localStorage.removeItem('postCount');
+  localStorage.removeItem('token');
 }
 
 function saveLocal(data) {
-  localStorage.setItem('name', data.name);
-  localStorage.setItem('id', data._id);
-  localStorage.setItem('nickname', data.nickname);
-  localStorage.setItem('email', data.email);
-  localStorage.setItem('postCount', data.postIds.length);
+  localStorage.setItem('token', data.token);
 }
 
 function sendLogin(credentials) {
